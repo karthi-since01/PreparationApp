@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import Firebase
 import FirebaseMessaging
 
 @main
@@ -40,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setupRootViewController() {
-        let splashScreenVC = SplashScreenViewController()
+        let splashScreenVC = SignInSignUpViewController()
         navigationController = UINavigationController(rootViewController: splashScreenVC)
         navigationController.isNavigationBarHidden = true
         window = UIWindow(frame: UIScreen.main.bounds)

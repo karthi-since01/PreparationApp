@@ -16,16 +16,22 @@
 		4F2E6FC12C11CBBA00ACCFF6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E6FC02C11CBB900ACCFF6 /* Helper.swift */; };
 		4F2E6FC32C11DD6500ACCFF6 /* PostMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E6FC22C11DD6500ACCFF6 /* PostMethodViewController.swift */; };
 		4F2E6FC52C11EC0E00ACCFF6 /* ConstraintsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E6FC42C11EC0E00ACCFF6 /* ConstraintsHelper.swift */; };
+		4FA5CFC12C182A83005BB806 /* ChatCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5CFC02C182A83005BB806 /* ChatCollectionViewCell.swift */; };
+		4FA5CFC32C182AD5005BB806 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5CFC22C182AD5005BB806 /* ChatViewController.swift */; };
+		4FA5CFC62C183166005BB806 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5CFC52C183166005BB806 /* ChatModel.swift */; };
+		4FA5CFCC2C186120005BB806 /* SignInSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5CFCB2C186120005BB806 /* SignInSignUpViewController.swift */; };
+		4FA5CFCE2C186C16005BB806 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5CFCD2C186C16005BB806 /* SignUpScreen.swift */; };
+		4FA5CFD02C186C34005BB806 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5CFCF2C186C34005BB806 /* SignInScreen.swift */; };
 		4FAECFE32C16EC3B001EE17B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FAECFE22C16EC3B001EE17B /* GoogleService-Info.plist */; };
 		4FBD65752C12E88E00CAA5CE /* BioMetricController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBD65712C12E88D00CAA5CE /* BioMetricController.swift */; };
 		4FBD65762C12E88E00CAA5CE /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBD65722C12E88D00CAA5CE /* SplashScreenViewController.swift */; };
 		4FBD65772C12E88E00CAA5CE /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBD65732C12E88D00CAA5CE /* AuthenticationError.swift */; };
 		4FBD65782C12E88E00CAA5CE /* Errormessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBD65742C12E88E00CAA5CE /* Errormessages.swift */; };
-		9336A50937A02735A3C1F22C /* Pods_preparationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F01F29FBA09C4A41F9E3842 /* Pods_preparationApp.framework */; };
+		93E8FE50A3E0177F8A37C5DF /* Pods_preparationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5260CA503D6BCF2D98688F2F /* Pods_preparationApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F01F29FBA09C4A41F9E3842 /* Pods_preparationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_preparationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		169D5AF7CC88854B640A9529 /* Pods-preparationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-preparationApp.debug.xcconfig"; path = "Target Support Files/Pods-preparationApp/Pods-preparationApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4F2E6F9D2C118D8D00ACCFF6 /* preparationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = preparationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F2E6FA02C118D8D00ACCFF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F2E6FA92C118DA400ACCFF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,14 +43,20 @@
 		4F2E6FC02C11CBB900ACCFF6 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		4F2E6FC22C11DD6500ACCFF6 /* PostMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMethodViewController.swift; sourceTree = "<group>"; };
 		4F2E6FC42C11EC0E00ACCFF6 /* ConstraintsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintsHelper.swift; sourceTree = "<group>"; };
+		4FA5CFC02C182A83005BB806 /* ChatCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewCell.swift; sourceTree = "<group>"; };
+		4FA5CFC22C182AD5005BB806 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		4FA5CFC52C183166005BB806 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		4FA5CFCB2C186120005BB806 /* SignInSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpViewController.swift; sourceTree = "<group>"; };
+		4FA5CFCD2C186C16005BB806 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		4FA5CFCF2C186C34005BB806 /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		4FAECFE12C16E613001EE17B /* preparationApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = preparationApp.entitlements; sourceTree = "<group>"; };
 		4FAECFE22C16EC3B001EE17B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4FBD65712C12E88D00CAA5CE /* BioMetricController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BioMetricController.swift; sourceTree = "<group>"; };
 		4FBD65722C12E88D00CAA5CE /* SplashScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		4FBD65732C12E88D00CAA5CE /* AuthenticationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationError.swift; sourceTree = "<group>"; };
 		4FBD65742C12E88E00CAA5CE /* Errormessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errormessages.swift; sourceTree = "<group>"; };
-		91E31222B2939D1225A8006A /* Pods-preparationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-preparationApp.release.xcconfig"; path = "Target Support Files/Pods-preparationApp/Pods-preparationApp.release.xcconfig"; sourceTree = "<group>"; };
-		F3090650E7B9B64A4B765200 /* Pods-preparationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-preparationApp.debug.xcconfig"; path = "Target Support Files/Pods-preparationApp/Pods-preparationApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5260CA503D6BCF2D98688F2F /* Pods_preparationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_preparationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8848CBE0A148823CF51C9E0C /* Pods-preparationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-preparationApp.release.xcconfig"; path = "Target Support Files/Pods-preparationApp/Pods-preparationApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9336A50937A02735A3C1F22C /* Pods_preparationApp.framework in Frameworks */,
+				93E8FE50A3E0177F8A37C5DF /* Pods_preparationApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +77,7 @@
 				4F2E6F9F2C118D8D00ACCFF6 /* preparationApp */,
 				4F2E6F9E2C118D8D00ACCFF6 /* Products */,
 				9602DF8B48C37C9B01EDD4F4 /* Pods */,
-				CC36C32CF170DCA87D4CA988 /* Frameworks */,
+				61017596FA924F884D3BEAA2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +102,8 @@
 				4F2E6FBF2C11CBA400ACCFF6 /* Helpers */,
 				4F2E6FB92C11941600ACCFF6 /* Generics API  */,
 				4F2E6FB42C11934B00ACCFF6 /* PreparationApp */,
+				4FA5CFC72C186095005BB806 /* SignIn-SignUp */,
+				4FA5CFBB2C181A7F005BB806 /* Chat */,
 			);
 			path = preparationApp;
 			sourceTree = "<group>";
@@ -145,6 +159,74 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		4FA5CFBB2C181A7F005BB806 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFC42C183140005BB806 /* Model */,
+				4FA5CFBF2C182A4C005BB806 /* View */,
+				4FA5CFBE2C182A1A005BB806 /* ViewConntroller */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		4FA5CFBE2C182A1A005BB806 /* ViewConntroller */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFC22C182AD5005BB806 /* ChatViewController.swift */,
+			);
+			path = ViewConntroller;
+			sourceTree = "<group>";
+		};
+		4FA5CFBF2C182A4C005BB806 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFC02C182A83005BB806 /* ChatCollectionViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4FA5CFC42C183140005BB806 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFC52C183166005BB806 /* ChatModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4FA5CFC72C186095005BB806 /* SignIn-SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFC82C1860C7005BB806 /* Model */,
+				4FA5CFCA2C1860E4005BB806 /* View */,
+				4FA5CFC92C1860DA005BB806 /* ViewController */,
+			);
+			name = "SignIn-SignUp";
+			sourceTree = "<group>";
+		};
+		4FA5CFC82C1860C7005BB806 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4FA5CFC92C1860DA005BB806 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFCB2C186120005BB806 /* SignInSignUpViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		4FA5CFCA2C1860E4005BB806 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5CFCD2C186C16005BB806 /* SignUpScreen.swift */,
+				4FA5CFCF2C186C34005BB806 /* SignInScreen.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		4FBD65702C12E87000CAA5CE /* BioMetrics */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,21 +238,21 @@
 			path = BioMetrics;
 			sourceTree = "<group>";
 		};
+		61017596FA924F884D3BEAA2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5260CA503D6BCF2D98688F2F /* Pods_preparationApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9602DF8B48C37C9B01EDD4F4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F3090650E7B9B64A4B765200 /* Pods-preparationApp.debug.xcconfig */,
-				91E31222B2939D1225A8006A /* Pods-preparationApp.release.xcconfig */,
+				169D5AF7CC88854B640A9529 /* Pods-preparationApp.debug.xcconfig */,
+				8848CBE0A148823CF51C9E0C /* Pods-preparationApp.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		CC36C32CF170DCA87D4CA988 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2F01F29FBA09C4A41F9E3842 /* Pods_preparationApp.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,19 +262,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F2E6FB12C118DA400ACCFF6 /* Build configuration list for PBXNativeTarget "preparationApp" */;
 			buildPhases = (
-				347CAC14A3552DC1BB7E591E /* [CP] Check Pods Manifest.lock */,
+				672D836EACDEEC9D34281AD7 /* [CP] Check Pods Manifest.lock */,
 				4F2E6F992C118D8D00ACCFF6 /* Sources */,
 				4F2E6F9A2C118D8D00ACCFF6 /* Frameworks */,
 				4F2E6F9B2C118D8D00ACCFF6 /* Resources */,
-				8732320D2B4E5B0AA80061C8 /* [CP] Embed Pods Frameworks */,
+				9880770A01ACEB4D4852C3F7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = preparationApp;
-			packageProductDependencies = (
-			);
 			productName = preparationApp;
 			productReference = 4F2E6F9D2C118D8D00ACCFF6 /* preparationApp.app */;
 			productType = "com.apple.product-type.application";
@@ -221,8 +301,6 @@
 				Base,
 			);
 			mainGroup = 4F2E6F942C118D8D00ACCFF6;
-			packageReferences = (
-			);
 			productRefGroup = 4F2E6F9E2C118D8D00ACCFF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -246,7 +324,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		347CAC14A3552DC1BB7E591E /* [CP] Check Pods Manifest.lock */ = {
+		672D836EACDEEC9D34281AD7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,7 +346,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8732320D2B4E5B0AA80061C8 /* [CP] Embed Pods Frameworks */ = {
+		9880770A01ACEB4D4852C3F7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -294,12 +372,18 @@
 			files = (
 				4FBD65782C12E88E00CAA5CE /* Errormessages.swift in Sources */,
 				4F2E6FC52C11EC0E00ACCFF6 /* ConstraintsHelper.swift in Sources */,
+				4FA5CFC12C182A83005BB806 /* ChatCollectionViewCell.swift in Sources */,
+				4FA5CFC62C183166005BB806 /* ChatModel.swift in Sources */,
 				4F2E6FA12C118D8D00ACCFF6 /* AppDelegate.swift in Sources */,
+				4FA5CFCE2C186C16005BB806 /* SignUpScreen.swift in Sources */,
 				4FBD65762C12E88E00CAA5CE /* SplashScreenViewController.swift in Sources */,
+				4FA5CFD02C186C34005BB806 /* SignInScreen.swift in Sources */,
 				4F2E6FC32C11DD6500ACCFF6 /* PostMethodViewController.swift in Sources */,
 				4F2E6FB62C11937F00ACCFF6 /* FrontPageViewController.swift in Sources */,
 				4F2E6FC12C11CBBA00ACCFF6 /* Helper.swift in Sources */,
 				4F2E6FBE2C119BDC00ACCFF6 /* PostAPIModel.swift in Sources */,
+				4FA5CFC32C182AD5005BB806 /* ChatViewController.swift in Sources */,
+				4FA5CFCC2C186120005BB806 /* SignInSignUpViewController.swift in Sources */,
 				4F2E6FBC2C1198EF00ACCFF6 /* GenericAPI.swift in Sources */,
 				4FBD65752C12E88E00CAA5CE /* BioMetricController.swift in Sources */,
 				4FBD65772C12E88E00CAA5CE /* AuthenticationError.swift in Sources */,
@@ -436,7 +520,7 @@
 		};
 		4F2E6FB22C118DA400ACCFF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3090650E7B9B64A4B765200 /* Pods-preparationApp.debug.xcconfig */;
+			baseConfigurationReference = 169D5AF7CC88854B640A9529 /* Pods-preparationApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -466,7 +550,7 @@
 		};
 		4F2E6FB32C118DA400ACCFF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91E31222B2939D1225A8006A /* Pods-preparationApp.release.xcconfig */;
+			baseConfigurationReference = 8848CBE0A148823CF51C9E0C /* Pods-preparationApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
