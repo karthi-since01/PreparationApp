@@ -24,7 +24,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .heavy)
         return label
     }()
     
@@ -32,8 +32,27 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         let button = UIButton(type: .system)
         let backImage = UIImage(systemName: "chevron.left")?.withRenderingMode(.alwaysTemplate)
         button.setImage(backImage, for: .normal)
-        button.tintColor = .white
+        button.tintColor = .black
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        imageView.backgroundColor = .systemGray4
+        imageView.isUserInteractionEnabled = true
+        imageView.layer.cornerRadius = .ratioHeightBasedOniPhoneX(20)
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        let settingsImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(settingsImage, for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -52,7 +71,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         self.title = user2Name ?? "Chat"
         self.headingLabel.text = user2Name ?? "Chat"
-        
+        view.backgroundColor = .orange
         navigationItem.largeTitleDisplayMode = .never
         maintainPositionOnKeyboardFrameChanged = true
         scrollsToLastItemOnKeyboardBeginsEditing = true
@@ -71,25 +90,40 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     func setUpUi() {
         view.addSubview(headerView)
-        headerView.addSubviews(with: [headingLabel, backButton])
+        headerView.addSubviews(with: [headingLabel, backButton, profileImageView, deleteButton])
         
         headerView.leading == view.leading
         headerView.trailing == view.trailing
         headerView.top == view.safeAreaLayoutGuide.topAnchor
         headerView.height == .ratioHeightBasedOniPhoneX(50)
         
-        headingLabel.centerX == headerView.centerX
+        headingLabel.leading == profileImageView.trailing + .ratioHeightBasedOniPhoneX(12)
+        headingLabel.trailing == deleteButton.leading - .ratioHeightBasedOniPhoneX(8)
         headingLabel.centerY == headerView.centerY
         
         backButton.leading == headerView.leading + .ratioHeightBasedOniPhoneX(5)
         backButton.centerY == headerView.centerY
         backButton.height == .ratioHeightBasedOniPhoneX(25)
         backButton.width == .ratioWidthBasedOniPhoneX(25)
+        
+        profileImageView.centerY == headerView.centerY
+        profileImageView.leading == backButton.trailing + .ratioHeightBasedOniPhoneX(5)
+        profileImageView.height == .ratioHeightBasedOniPhoneX(40)
+        profileImageView.width == .ratioHeightBasedOniPhoneX(40)
+        
+        deleteButton.centerY == headerView.centerY
+        deleteButton.trailing == headerView.trailing + .ratioHeightBasedOniPhoneX(-5)
+        deleteButton.height == .ratioHeightBasedOniPhoneX(36)
+        deleteButton.width == .ratioWidthBasedOniPhoneX(36)
 
     }
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func deleteButtonTapped() {
+        
     }
     
     // MARK: - Custom messages handlers

@@ -49,12 +49,13 @@ class ChatListViewController: UIViewController {
         view.addSubviews(with: [headingLabel, chatListTableView])
         
         headingLabel.top == view.safeAreaLayoutGuide.topAnchor + .ratioHeightBasedOniPhoneX(5)
+        headingLabel.height == .ratioHeightBasedOniPhoneX(30)
         headingLabel.centerX == view.centerX
         
         chatListTableView.top == headingLabel.bottom + .ratioHeightBasedOniPhoneX(15)
-        chatListTableView.leading == view.leading + .ratioHeightBasedOniPhoneX(5)
-        chatListTableView.trailing == view.trailing - .ratioHeightBasedOniPhoneX(5)
-        chatListTableView.bottom == view.bottom - .ratioHeightBasedOniPhoneX(5)
+        chatListTableView.leading == view.leading
+        chatListTableView.trailing == view.trailing
+        chatListTableView.bottom == view.bottom
     }
     
     func getUsersFromFireBaseAuth() {
