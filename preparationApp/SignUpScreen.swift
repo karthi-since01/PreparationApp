@@ -8,9 +8,10 @@
 import UIKit
 import FirebaseAuth
 
-class SignUpScreen: UIView, UITextFieldDelegate {
+class SignUpScreen: UIView, UITextFieldDelegate, UIImagePickerControllerDelegate {
     
     var signUpSubmitButtonAction: (() -> Void)?
+    var profileImageButtonAction: (() -> Void)?
     
     lazy var headingLabel: UILabel = {
         let label = UILabel()
@@ -19,6 +20,18 @@ class SignUpScreen: UIView, UITextFieldDelegate {
         label.text = "Sign Up"
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label
+    }()
+    
+    lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
+        imageView.backgroundColor = .systemGray4
+        imageView.isUserInteractionEnabled = true
+        imageView.layer.cornerRadius = .ratioHeightBasedOniPhoneX(50)
+        imageView.clipsToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
+        return imageView
     }()
     
     lazy var nameLabel: UILabel = {
@@ -143,12 +156,18 @@ class SignUpScreen: UIView, UITextFieldDelegate {
     }
     
     private func setupUI() {
-        addSubviews(with: [headingLabel, nameLabel, nameTextField, emailLabel, emailTextField ,passwordLabel, passwordTextField, confirmPasswordLabel, confirmPasswordTextField, submitButton])
+        addSubviews(with: [headingLabel, profileImageView, nameLabel, nameTextField, emailLabel, emailTextField ,passwordLabel, passwordTextField, confirmPasswordLabel, confirmPasswordTextField, submitButton])
         
         headingLabel.top == top + .ratioHeightBasedOniPhoneX(5)
+        headingLabel.height == .ratioHeightBasedOniPhoneX(20)
         headingLabel.centerX == centerX
         
-        nameLabel.top == headingLabel.bottom + .ratioHeightBasedOniPhoneX(15)
+        profileImageView.top == headingLabel.bottom + .ratioHeightBasedOniPhoneX(15)
+        profileImageView.centerX == centerX
+        profileImageView.height == .ratioHeightBasedOniPhoneX(100)
+        profileImageView.width == .ratioHeightBasedOniPhoneX(100)
+        
+        nameLabel.top == profileImageView.bottom + .ratioHeightBasedOniPhoneX(15)
         nameLabel.leading == leading + .ratioHeightBasedOniPhoneX(5)
         
         nameTextField.top == nameLabel.bottom + .ratioHeightBasedOniPhoneX(5)
@@ -192,5 +211,9 @@ class SignUpScreen: UIView, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func profileImageViewTapped() {
+        profileImageButtonAction?()
     }
 }

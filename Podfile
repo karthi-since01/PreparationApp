@@ -14,6 +14,7 @@ target 'preparationApp' do
   pod 'Firebase/Firestore'
   pod 'FirebaseMessaging'
   pod 'SDWebImage'
+  pod 'Firebase/Database'
   
 end
 

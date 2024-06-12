@@ -7,11 +7,10 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class SignInSignUpViewController: UIViewController {
-    
-    var currentUser: User = Auth.auth().currentUser!
-    
+
     lazy var signInScreen = SignInScreen()
     lazy var signUpScreen = SignUpScreen()
     
@@ -45,6 +44,10 @@ class SignInSignUpViewController: UIViewController {
             self?.signUpTap()
         }
         
+        signUpScreen.profileImageButtonAction = { [weak self] in
+            print("Gallery button tapped")
+            self?.profileButtonTap()
+        }
     }
     
     func setUpUI() {
@@ -57,7 +60,7 @@ class SignInSignUpViewController: UIViewController {
         
         signUpScreen.centerX == view.centerX
         signUpScreen.centerY == view.centerY
-        signUpScreen.height == .ratioWidthBasedOniPhoneX(300)
+        signUpScreen.height == .ratioWidthBasedOniPhoneX(400)
         signUpScreen.width == .ratioWidthBasedOniPhoneX(300)
         
         switchViewButton.bottom == view.bottom - .ratioHeightBasedOniPhoneX(5)
@@ -104,6 +107,20 @@ class SignInSignUpViewController: UIViewController {
                         }
                     }
                     print("User created with UID: \(user.uid)")
+                    
+                    let db = Firestore.firestore()
+                    db.collection("userList").document(user.uid).setData([
+                        "uid": user.uid,
+                        "displayName": name,
+                        "email": email
+                    ]) { error in
+                        if let error = error {
+                            print("Error adding user to Firestore: \(error.localizedDescription)")
+                        } else {
+                            print("User added to Firestore successfully")
+                        }
+                    }
+                    
                     self.signInScreen.isHidden = false
                     self.signUpScreen.isHidden = true
                     
@@ -113,10 +130,6 @@ class SignInSignUpViewController: UIViewController {
                     self.signUpScreen.confirmPasswordTextField.text = ""
                     
                     self.showAlert(withTitle: "Success", message: "User created successfully !!!")
-
-                    
-//                    let vc = FrontPageViewController()
-//                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         } else {
@@ -136,11 +149,33 @@ class SignInSignUpViewController: UIViewController {
             if let error = error {
                 print("Error signing in: \(error.localizedDescription)")
                 self.showAlert(withTitle: "Error", message: error.localizedDescription)
-            } else {
+            } else if let user = authResult?.user {
                 print("User signed in successfully")
-                let vc = FrontPageViewController()
+                print(user.displayName ?? "No display name --- ")
+                print(user.uid)
+                let vc = ChatListViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
+    }
+    
+    func profileButtonTap() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+}
+
+extension SignInSignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            signUpScreen.profileImageView.image = selectedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
