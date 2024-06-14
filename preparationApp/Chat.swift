@@ -4,6 +4,7 @@ struct User {
     let uid: String
     let displayName: String
     let email: String
+    let profileImageURL: String
 }
 
 struct Chat {

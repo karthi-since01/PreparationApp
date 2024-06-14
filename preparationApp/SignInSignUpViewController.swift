@@ -14,6 +14,8 @@ class SignInSignUpViewController: UIViewController {
     lazy var signInScreen = SignInScreen()
     lazy var signUpScreen = SignUpScreen()
     
+    var convertedImageURL: String = ""
+    
     lazy var switchViewButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -35,12 +37,12 @@ class SignInSignUpViewController: UIViewController {
         setUpUI()
         
         signInScreen.signInSubmitButtonAction = { [weak self] in
-            print("sighin submit button tapped")
+            print("sign in submit button tapped")
             self?.signInTap()
         }
         
         signUpScreen.signUpSubmitButtonAction = { [weak self] in
-            print("sigh up submit button tapped")
+            print("sign up submit button tapped")
             self?.signUpTap()
         }
         
@@ -85,51 +87,69 @@ class SignInSignUpViewController: UIViewController {
         guard let email = signUpScreen.emailTextField.text, !email.isEmpty,
               let password = signUpScreen.passwordTextField.text, !password.isEmpty,
               let name = signUpScreen.nameTextField.text, !name.isEmpty,
+              let profileImage = signUpScreen.profileImageView.image,
               let confirmPassword = signUpScreen.confirmPasswordTextField.text, !confirmPassword.isEmpty else {
             showAlert(withTitle: "Error", message: "All Fields are Mandatory!!!")
             return
         }
         
         if password == confirmPassword {
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                if let error = error {
-                    print("Error creating user: \(error.localizedDescription)")
-                    self.showAlert(withTitle: "Error", message: error.localizedDescription)
-                } else if let user = authResult?.user {
-                    let changeRequest = user.createProfileChangeRequest()
-                    changeRequest.displayName = name
-                    changeRequest.commitChanges { error in
-                        if let error = error {
-                            print("Error updating display name: \(error.localizedDescription)")
-                            self.showAlert(withTitle: "Error", message: error.localizedDescription)
-                        } else {
-                            print("Display name updated successfully")
+            
+            self.uploadImageToFirebaseStorage(image: profileImage) { downloadURL in
+                guard let downloadURL = downloadURL else {
+                    print("Error uploading profile image to Firebase Storage")
+                    self.showAlert(withTitle: "Error", message: "Failed to upload profile image")
+                    return
+                }
+                
+                self.convertedImageURL = downloadURL.absoluteString
+                print(":::: STEP 1 \(self.convertedImageURL)")
+                
+                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                    if let error = error {
+                        print("Error creating user: \(error.localizedDescription)")
+                        self.showAlert(withTitle: "Error", message: error.localizedDescription)
+                    } else if let user = authResult?.user {
+                        let changeRequest = user.createProfileChangeRequest()
+                        changeRequest.displayName = name
+                        changeRequest.photoURL = URL(string: self.convertedImageURL)
+                        changeRequest.commitChanges { error in
+                            if let error = error {
+                                print("Error updating display name: \(error.localizedDescription)")
+                                self.showAlert(withTitle: "Error", message: error.localizedDescription)
+                            } else {
+                                print("Display name updated successfully")
+                            }
                         }
-                    }
-                    print("User created with UID: \(user.uid)")
-                    
-                    let db = Firestore.firestore()
-                    db.collection("userList").document(user.uid).setData([
-                        "uid": user.uid,
-                        "displayName": name,
-                        "email": email
-                    ]) { error in
-                        if let error = error {
-                            print("Error adding user to Firestore: \(error.localizedDescription)")
-                        } else {
-                            print("User added to Firestore successfully")
+                        print(":::: STEP 2 \(self.convertedImageURL)")
+                        print("User created with UID: \(user.uid)")
+                        
+                        let db = Firestore.firestore()
+                        db.collection("userList").document(user.uid).setData([
+                            "uid": user.uid,
+                            "displayName": name,
+                            "email": email,
+                            "profileImageURL": self.convertedImageURL
+                        ]) { error in
+                            if let error = error {
+                                print("Error adding user to Firestore: \(error.localizedDescription)")
+                            } else {
+                                print("User added to Firestore successfully")
+                            }
                         }
+                        
+                        print(":::: STEP 3 \(self.convertedImageURL)")
+                        
+                        self.signInScreen.isHidden = false
+                        self.signUpScreen.isHidden = true
+                        
+                        self.signUpScreen.nameTextField.text = ""
+                        self.signUpScreen.emailTextField.text = ""
+                        self.signUpScreen.passwordTextField.text = ""
+                        self.signUpScreen.confirmPasswordTextField.text = ""
+                        
+                        self.showAlert(withTitle: "Success", message: "User created successfully !!!")
                     }
-                    
-                    self.signInScreen.isHidden = false
-                    self.signUpScreen.isHidden = true
-                    
-                    self.signUpScreen.nameTextField.text = ""
-                    self.signUpScreen.emailTextField.text = ""
-                    self.signUpScreen.passwordTextField.text = ""
-                    self.signUpScreen.confirmPasswordTextField.text = ""
-                    
-                    self.showAlert(withTitle: "Success", message: "User created successfully !!!")
                 }
             }
         } else {

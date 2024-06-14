@@ -12,6 +12,8 @@ class ChatListTableViewCell: UITableViewCell {
     lazy var userProfileImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person.circle.fill")
+        image.layer.cornerRadius = .ratioHeightBasedOniPhoneX(25)
+        image.clipsToBounds = true
         return image
     }()
     
@@ -49,7 +51,7 @@ class ChatListTableViewCell: UITableViewCell {
         
         userProfileImage.centerY == centerY
         userProfileImage.height == .ratioHeightBasedOniPhoneX(50)
-        userProfileImage.width == .ratioWidthBasedOniPhoneX(50)
+        userProfileImage.width == .ratioHeightBasedOniPhoneX(50)
         userProfileImage.leading == leading + .ratioHeightBasedOniPhoneX(5)
         
         nameLabel.leading == userProfileImage.trailing + .ratioHeightBasedOniPhoneX(20)

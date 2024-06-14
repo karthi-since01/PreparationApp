@@ -73,10 +73,12 @@ class ChatListViewController: UIViewController {
                     let data = document.data()
                     guard let uid = data["uid"] as? String,
                           let displayName = data["displayName"] as? String,
-                          let email = data["email"] as? String else {
+                          let email = data["email"] as? String,
+                          let image = data["profileImageURL"] as? String
+                    else {
                         return nil
                     }
-                    return User(uid: uid, displayName: displayName, email: email)
+                    return User(uid: uid, displayName: displayName, email: email, profileImageURL: image)
                 }).filter { $0.uid != currentUserID } ?? []
                 
                 DispatchQueue.main.async {
@@ -97,6 +99,20 @@ extension ChatListViewController: UITableViewDataSource, UITableViewDelegate {
         let user = users[indexPath.row]
         cell.nameLabel.text = user.displayName
         cell.lastMessageLabel.text = user.uid
+        
+        cell.userProfileImage.image = UIImage(systemName: "person.circle")
+        
+        if let imageUrl = URL(string: user.profileImageURL) {
+            URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        if let currentCell = tableView.cellForRow(at: indexPath) as? ChatListTableViewCell {
+                            currentCell.userProfileImage.image = image
+                        }
+                    }
+                }
+            }.resume()
+        }
         return cell
     }
     
@@ -105,6 +121,7 @@ extension ChatListViewController: UITableViewDataSource, UITableViewDelegate {
         let chatViewController = ChatViewController()
         chatViewController.user2Name = user.displayName
         chatViewController.user2UID = user.uid
+        chatViewController.user2ImgUrl = user.profileImageURL
         
         navigationController?.pushViewController(chatViewController, animated: true)
     }

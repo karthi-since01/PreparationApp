@@ -8,13 +8,15 @@ target 'preparationApp' do
   # Pods for preparationApp
   pod 'Alamofire', '~> 5.4'
   pod 'GoogleSignIn'
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
+  #pod 'Firebase/Core'
+  #pod 'Firebase/Auth'
   pod 'MessageKit'
-  pod 'Firebase/Firestore'
-  pod 'FirebaseMessaging'
+  #pod 'Firebase/Firestore'
+  #pod 'FirebaseMessaging'
   pod 'SDWebImage'
-  pod 'Firebase/Database'
+  #pod 'Firebase/Database'
+ #pod 'Firebase/Storage
+  pod 'AlamofireImage'
   
 end
 

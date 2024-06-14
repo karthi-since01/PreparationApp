@@ -59,7 +59,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     var currentUser: FirebaseAuth.User = Auth.auth().currentUser!
 
     var user2Name: String?
-    var user2ImgUrl: String? // = "https://picsum.photos/200"
+    var user2ImgUrl: String = ""
     var user2UID: String?
     
     private var docReference: DocumentReference?
@@ -71,6 +71,9 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         self.title = user2Name ?? "Chat"
         self.headingLabel.text = user2Name ?? "Chat"
+        
+        setUpProfilePic()
+        
         view.backgroundColor = .orange
         navigationItem.largeTitleDisplayMode = .never
         maintainPositionOnKeyboardFrameChanged = true
@@ -89,6 +92,13 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     }
     
     func setUpUi() {
+        
+        if let fcmToken = Messaging.messaging().fcmToken {
+            print("Recipient FCM token: \(fcmToken)")
+        } else {
+            print("Recipient FCM token not available")
+        }
+        
         view.addSubview(headerView)
         headerView.addSubviews(with: [headingLabel, backButton, profileImageView, deleteButton])
         
@@ -116,6 +126,31 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         deleteButton.height == .ratioHeightBasedOniPhoneX(36)
         deleteButton.width == .ratioWidthBasedOniPhoneX(36)
 
+    }
+
+    func setUpProfilePic() {
+
+        self.profileImageView.image = UIImage(systemName: "person.circle")
+        
+        guard let imageUrl = URL(string: user2ImgUrl) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+            if let error = error {
+                print("Error downloading image: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                print("Failed to load image data")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.profileImageView.image = image
+            }
+        }.resume()
     }
     
     @objc func backButtonTapped() {
@@ -297,7 +332,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 avatarView.image = image
             }
         } else {
-            if let url = URL(string: user2ImgUrl ?? "") {
+            if let url = URL(string: user2ImgUrl ) {
                 SDWebImageManager.shared.loadImage(with: url, options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
                     avatarView.image = image
                 }
