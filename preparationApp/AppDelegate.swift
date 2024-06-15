@@ -21,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         setupNotifications(for: application)
         
-        Messaging.messaging().delegate = self
-        
         setupRootViewController()
         
         return true
@@ -53,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification) async
-    -> UNNotificationPresentationOptions {
+                                willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         let userInfo = notification.request.content.userInfo
         print(userInfo)
         return [[.alert, .sound]]
@@ -67,23 +64,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 
     func application(_ application: UIApplication,
-                     didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async
-    -> UIBackgroundFetchResult {
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
         print(userInfo)
         return .newData
-    }
-}
-
-extension AppDelegate: MessagingDelegate {
-
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let token = fcmToken {
-            print("Firebase registration token: \(token)")
-        } else {
-            print("Failed to retrieve Firebase registration token.")
-        }
-
-        let dataDict: [String: String] = ["token": fcmToken ?? ""]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
     }
 }

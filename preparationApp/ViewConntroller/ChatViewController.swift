@@ -63,11 +63,13 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     var user2UID: String?
     
     private var docReference: DocumentReference?
-    
+    var user2FCMToken: String?
     var messages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("::::::::::::>>>\(user2FCMToken)")
         
         self.title = user2Name ?? "Chat"
         self.headingLabel.text = user2Name ?? "Chat"
@@ -92,12 +94,6 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     }
     
     func setUpUi() {
-        
-        if let fcmToken = Messaging.messaging().fcmToken {
-            print("Recipient FCM token: \(fcmToken)")
-        } else {
-            print("Recipient FCM token not available")
-        }
         
         view.addSubview(headerView)
         headerView.addSubviews(with: [headingLabel, backButton, profileImageView, deleteButton])
@@ -209,8 +205,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                         
                         let chat = Chat(dictionary: doc.data())
                         //Get the chat which has user2 id
-                        if (chat?.users.contains(self.user2UID ?? ""))! {
-                            
+                        if let chat = chat, chat.users.contains(self.user2UID ?? "") {
                             self.docReference = doc.reference
                             //fetch it's thread collection
                             doc.reference.collection("thread")
@@ -284,6 +279,19 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         //messages.append(message)
         insertNewMessage(message)
         save(message)
+        
+        if let recipientToken = self.user2FCMToken {
+            
+            print("recipientToken ::::")
+            print(recipientToken)
+            
+            ChatNotificationController.shared.sendPushNotification(
+                to: recipientToken,
+                title: "New Message from \(currentUser.displayName ?? "Unknown")",
+                body: text,
+                data: ["chatId": docReference?.documentID ?? ""]
+            )
+        }
         
         inputBar.inputTextView.text = ""
         messagesCollectionView.reloadData()

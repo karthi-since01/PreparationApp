@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseMessaging
 import FirebaseFirestore
 
 class SignInSignUpViewController: UIViewController {
@@ -15,6 +16,7 @@ class SignInSignUpViewController: UIViewController {
     lazy var signUpScreen = SignUpScreen()
     
     var convertedImageURL: String = ""
+    var newFCMToken: String = ""
     
     lazy var switchViewButton: UIButton = {
         let button = UIButton(type: .system)
@@ -83,6 +85,37 @@ class SignInSignUpViewController: UIViewController {
         }
     }
     
+    func requestNewFCMToken() {
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM token: \(error.localizedDescription)")
+            } else if let token = token {
+                print("New FCM token: \(token)")
+                self.newFCMToken = token
+                
+                self.updateFCMTokenInFirestore()
+            }
+        }
+    }
+
+    func updateFCMTokenInFirestore() {
+        guard let user = Auth.auth().currentUser else {
+            print("No user is currently signed in")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        db.collection("userList").document(user.uid).updateData([
+            "fcmTokenForAUser": self.newFCMToken
+        ]) { error in
+            if let error = error {
+                print("Error updating FCM token in Firestore: \(error.localizedDescription)")
+            } else {
+                print("FCM token updated in Firestore successfully")
+            }
+        }
+    }
+
     func signUpTap() {
         guard let email = signUpScreen.emailTextField.text, !email.isEmpty,
               let password = signUpScreen.passwordTextField.text, !password.isEmpty,
@@ -91,6 +124,15 @@ class SignInSignUpViewController: UIViewController {
               let confirmPassword = signUpScreen.confirmPasswordTextField.text, !confirmPassword.isEmpty else {
             showAlert(withTitle: "Error", message: "All Fields are Mandatory!!!")
             return
+        }
+        
+        Messaging.messaging().deleteToken { error in
+            if let error = error {
+                print("Error deleting FCM token: \(error.localizedDescription)")
+            } else {
+                print("FCM token deleted successfully")
+                self.requestNewFCMToken()
+            }
         }
         
         if password == confirmPassword {
@@ -129,7 +171,8 @@ class SignInSignUpViewController: UIViewController {
                             "uid": user.uid,
                             "displayName": name,
                             "email": email,
-                            "profileImageURL": self.convertedImageURL
+                            "profileImageURL": self.convertedImageURL,
+                            "fcmTokenForAUser": self.newFCMToken
                         ]) { error in
                             if let error = error {
                                 print("Error adding user to Firestore: \(error.localizedDescription)")
@@ -139,16 +182,11 @@ class SignInSignUpViewController: UIViewController {
                         }
                         
                         print(":::: STEP 3 \(self.convertedImageURL)")
-                        
-                        self.signInScreen.isHidden = false
-                        self.signUpScreen.isHidden = true
-                        
-                        self.signUpScreen.nameTextField.text = ""
-                        self.signUpScreen.emailTextField.text = ""
-                        self.signUpScreen.passwordTextField.text = ""
-                        self.signUpScreen.confirmPasswordTextField.text = ""
-                        
-                        self.showAlert(withTitle: "Success", message: "User created successfully !!!")
+
+                        self.showSuccessAlert(withTitle: "Success", message: "User created successfully !!!") {
+                            let chatListVC = ChatListViewController()
+                            self.navigationController?.pushViewController(chatListVC, animated: true)
+                        }
                     }
                 }
             }
@@ -159,16 +197,27 @@ class SignInSignUpViewController: UIViewController {
     
     func signInTap() {
         
+        // Delete the old FCM token
+        Messaging.messaging().deleteToken { error in
+            if let error = error {
+                print("Error deleting FCM token: \(error.localizedDescription)")
+            } else {
+                print("FCM token deleted successfully")
+                
+                self.requestNewFCMToken()
+            }
+        }
+        
         guard let email = signInScreen.emailTextField.text, !email.isEmpty,
               let password = signInScreen.passwordTextField.text, !password.isEmpty else {
-            showAlert(withTitle: "Error", message: "All Fields are Mandatory!!!")
+            showErrorAlert(withTitle: "Error", message: "All Fields are Mandatory!!!")
             return
         }
         
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("Error signing in: \(error.localizedDescription)")
-                self.showAlert(withTitle: "Error", message: error.localizedDescription)
+                self.showErrorAlert(withTitle: "Error", message: error.localizedDescription)
             } else if let user = authResult?.user {
                 print("User signed in successfully")
                 print(user.displayName ?? "No display name --- ")

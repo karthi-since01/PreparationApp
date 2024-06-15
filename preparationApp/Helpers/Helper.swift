@@ -17,6 +17,20 @@ extension UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    func showSuccessAlert(withTitle title: String, message: String, completion: (() -> Void)?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            completion?()
+        }))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showErrorAlert(withTitle title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func uploadImageToFirebaseStorage(image: UIImage, completion: @escaping (URL?) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()

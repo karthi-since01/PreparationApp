@@ -74,11 +74,12 @@ class ChatListViewController: UIViewController {
                     guard let uid = data["uid"] as? String,
                           let displayName = data["displayName"] as? String,
                           let email = data["email"] as? String,
-                          let image = data["profileImageURL"] as? String
+                          let image = data["profileImageURL"] as? String,
+                          let fcmTokenForAUser = data["fcmTokenForAUser"] as? String
                     else {
                         return nil
                     }
-                    return User(uid: uid, displayName: displayName, email: email, profileImageURL: image)
+                    return User(uid: uid, displayName: displayName, email: email, profileImageURL: image, fcmTokenForAUser: fcmTokenForAUser)
                 }).filter { $0.uid != currentUserID } ?? []
                 
                 DispatchQueue.main.async {
@@ -122,6 +123,7 @@ extension ChatListViewController: UITableViewDataSource, UITableViewDelegate {
         chatViewController.user2Name = user.displayName
         chatViewController.user2UID = user.uid
         chatViewController.user2ImgUrl = user.profileImageURL
+        chatViewController.user2FCMToken = user.fcmTokenForAUser
         
         navigationController?.pushViewController(chatViewController, animated: true)
     }
