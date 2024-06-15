@@ -169,7 +169,7 @@ class SplashScreenViewController: UIViewController {
     /// Navigates to the next view controller upon successful authentication
     func navigateToNextViewController() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(0.5))) {
-            let viewcontroller = FrontPageViewController()
+            let viewcontroller = SignInSignUpViewController()
             self.navigationController?.pushViewController(viewcontroller, animated: true)
         }
     }
